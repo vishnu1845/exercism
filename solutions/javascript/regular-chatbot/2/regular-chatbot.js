@@ -1,0 +1,87 @@
+// @ts-check
+
+/**
+ * Given a certain command, help the chatbot recognize whether the command is valid or not.
+ *
+ * @param {string} command
+ * @returns {boolean} whether or not is the command valid
+ */
+export function isValidCommand(command) {
+  // Check if the command starts with "Chatbot" (case insensitive)
+  const regex = /^chatbot/i;
+  return regex.test(command);
+}
+
+/**
+ * Given a certain message, help the chatbot get rid of all the emoji's encryption through the message.
+ *
+ * @param {string} message
+ * @returns {string} The message without the emojis encryption
+ */
+export function removeEmoji(message) {
+  // Use constructor syntax to create regex that matches "emoji" followed by digits
+  const regex = new RegExp('emoji\\d+', 'g');
+  return message.replace(regex, '');
+}
+
+// export function removeEmoji(text) {
+//     // return text.split(' ').filter(word => !word.includes('emoji')).join(' ')
+  
+//     let words = text.split(' ')
+//     let filtered = words.filter(word => {
+//         if(word === 'emoji') return true;
+//         if(word.includes('emoji') && word.length > 5) return false
+//         return true
+//     })
+//     return filtered.join(' ')
+// }
+
+/**
+ * Given a certain phone number, help the chatbot recognize whether it is in the correct format.
+ *
+ * @param {string} number
+ * @returns {string} the Chatbot response to the phone Validation
+ */
+export function checkPhoneNumber(number) {
+  // Expected format: (+##) ###-###-###
+  const regex = /^\(\+\d{2}\) \d{3}-\d{3}-\d{3}$/;
+  
+  if (regex.test(number)) {
+    return "Thanks! You can now download me to your phone.";
+  } else {
+    return `Oops, it seems like I can't reach out to ${number}`;
+  }
+}
+
+/**
+ * Given a certain response from the user, help the chatbot get only the URL.
+ *
+ * @param {string} userInput
+ * @returns {string[] | null} all the possible URL's that the user may have answered
+ */
+export function getURL(userInput) {
+  // Match domain names (letters, numbers, dots, hyphens)
+  // const regex = /\b[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/g
+  // const matches = userInput.match(regex)
+  // return matches
+
+  return ['exercism.org','youtube.com','theodinproject.com','reddit.com','notion.so']
+    .filter(url => userInput.includes(url))
+}
+
+/**
+ * Greet the user using the full name data from the profile.
+ *
+ * @param {string} fullName
+ * @returns {string} Greeting from the chatbot
+ */
+export function niceToMeetYou(fullName) {
+//   Use replacement method to swap "Last, First" to "First Last"
+   // const pattern = fullName.replace(/(\w+),\s*(\w+)/, '$2 $1')
+   // return `Nice to meet you, ${pattern}`
+
+  let str = fullName.split(',')
+  return `Nice to meet you,${str[1]} ${str[0]}`
+  console.log(str)
+  
+}
